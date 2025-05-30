@@ -6,11 +6,15 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 # You should set NEWSAPI_KEY as an environment variable for security
-NEWSAPI_KEY = os.getenv("NEWSAPI_KEY")
+NEWSAPI_KEY = "3ce001b8e4764a8089c92b23d3c28e3a"
+
+
 
 TRUSTED_DOMAINS = [
-    "bbc.co.uk", "bbc.com", "cnn.com", "reuters.com", "apnews.com", "nytimes.com", "theguardian.com"
+    "bbc.co.uk", "bbc.com", "cnn.com", "reuters.com", "apnews.com",
+    "nytimes.com", "theguardian.com"
 ]
+
 
 def get_articles(query):
     url = "https://newsapi.org/v2/everything"
@@ -32,6 +36,7 @@ def get_articles(query):
     except Exception as e:
         return [], f"Error contacting NewsAPI: {str(e)}"
 
+
 def trust_score(articles):
     if not articles:
         return 0, 0
@@ -41,6 +46,7 @@ def trust_score(articles):
         if any(domain in source_url for domain in TRUSTED_DOMAINS):
             trusted_count += 1
     return trusted_count, len(articles)
+
 
 def verdict(trusted, total):
     if total == 0:
@@ -53,6 +59,7 @@ def verdict(trusted, total):
     else:
         return "Possibly Fake", f"Only {trusted} out of {total} sources are reputable.", percent
 
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
@@ -62,6 +69,7 @@ def index():
             return redirect(url_for("index"))
         return redirect(url_for("result", headline=headline))
     return render_template("index.html")
+
 
 @app.route("/result")
 def result():
@@ -75,15 +83,15 @@ def result():
     else:
         trusted, total = trust_score(articles)
         verdict_text, reasoning, percent = verdict(trusted, total)
-    return render_template(
-        "result.html",
-        headline=headline,
-        articles=articles,
-        verdict=verdict_text,
-        reasoning=reasoning,
-        percent=percent,
-        trusted_domains=TRUSTED_DOMAINS
-    )
+    return render_template("result.html",
+                           headline=headline,
+                           articles=articles,
+                           verdict=verdict_text,
+                           reasoning=reasoning,
+                           percent=percent,
+                           trusted_domains=TRUSTED_DOMAINS)
 
+
+# Only needed for local development
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
