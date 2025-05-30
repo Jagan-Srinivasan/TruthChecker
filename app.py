@@ -9,12 +9,14 @@ app.secret_key = os.urandom(24)
 NEWSAPI_KEY = "3ce001b8e4764a8089c92b23d3c28e3a"
 
 
-
 TRUSTED_DOMAINS = [
     "bbc.co.uk", "bbc.com", "cnn.com", "reuters.com", "apnews.com",
-    "nytimes.com", "theguardian.com"
+    "nytimes.com", "theguardian.com",
+    # Indian trusted sources
+    "thehindu.com", "indiatimes.com", "timesofindia.indiatimes.com",
+    "ndtv.com", "indianexpress.com", "hindustantimes.com",
+    "business-standard.com", "livemint.com"
 ]
-
 
 def get_articles(query):
     url = "https://newsapi.org/v2/everything"
