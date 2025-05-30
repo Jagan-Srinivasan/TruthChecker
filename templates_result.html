@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <h2 class="mb-1 text-center">Verdict</h2>
+    <div class="verdict-card my-3 p-4 text-center rounded shadow-sm 
+        {% if verdict == 'Likely True' %}verdict-true
+        {% elif verdict == 'Possibly Fake' %}verdict-fake
+        {% else %}verdict-unknown{% endif %}">
+      <h3 class="fw-bold mb-2">
+        {{ verdict }}
+        {% if percent %}
+        <span class="badge bg-secondary ms-2">{{ percent }}%</span>
+        {% endif %}
+      </h3>
+      <div class="trust-bar mb-2">
+        <div class="trust-bar-inner" style="width: {{ percent }}%;
+          {% if verdict == 'Likely True' %}background: #32c671;
+          {% elif verdict == 'Possibly Fake' %}background: #dc3545;
+          {% else %}background: #ffc107;{% endif %}"></div>
+      </div>
+      <p class="lead mb-0">{{ reasoning }}</p>
+    </div>
+    <div class="headline-box mb-4 text-center">
+      <span class="badge bg-light text-dark px-3 py-2">{{ headline }}</span>
+    </div>
+  </div>
+</div>
+{% if articles %}
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+  {% for article in articles %}
+  <div class="col d-flex">
+    <div class="card article-card flex-fill mb-3 shadow rounded-4 animate__animated animate__fadeInUp">
+      {% if article.urlToImage %}
+      <img src="{{ article.urlToImage }}" class="card-img-top rounded-top-4" alt="Article image" loading="lazy">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ article.title }}</h5>
+        <p class="card-text small">{{ article.description or '' }}</p>
+      </div>
+      <div class="card-footer bg-transparent d-flex justify-content-between align-items-center">
+        <span class="badge bg-info text-dark">{{ article.source.name }}</span>
+        <small class="text-muted">{{ article.publishedAt[:10] }}</small>
+        <a href="{{ article.url }}" target="_blank" class="btn btn-link btn-sm">Read</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info text-center">
+  No articles found for this headline.
+</div>
+{% endif %}
+<div class="text-center mt-4">
+  <a href="{{ url_for('index') }}" class="btn btn-outline-primary">Try Another Headline</a>
+</div>
+{% endblock %}

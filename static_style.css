@@ -1,0 +1,116 @@
+body {
+    background: #f5f7fa;
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica', Arial, sans-serif;
+}
+
+.min-vh-50 {
+    min-height: 50vh;
+}
+
+.card {
+    border-radius: 1.25rem;
+}
+
+.stylish-btn {
+    background: linear-gradient(90deg, #3a8dde 0%, #32c671 100%);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.stylish-btn:hover {
+    background: linear-gradient(90deg, #32c671 0%, #3a8dde 100%);
+    color: #fff;
+    transform: translateY(-2px) scale(1.04);
+}
+
+.verdict-card {
+    max-width: 480px;
+    margin: 0 auto 1.5rem auto;
+    border-radius: 1.25rem;
+    font-size: 1.25rem;
+}
+
+.verdict-true {
+    border-left: 8px solid #32c671;
+    background: #e9fbe7;
+    color: #207944;
+}
+
+.verdict-fake {
+    border-left: 8px solid #dc3545;
+    background: #ffeaea;
+    color: #b02a37;
+}
+
+.verdict-unknown {
+    border-left: 8px solid #ffc107;
+    background: #fffde7;
+    color: #a4841c;
+}
+
+.trust-bar {
+    width: 100%;
+    background: #ececec;
+    height: 17px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.trust-bar-inner {
+    height: 100%;
+    border-radius: 8px 0 0 8px;
+    transition: width 0.8s cubic-bezier(.4,2.08,.55,.44);
+}
+
+.article-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: #fff;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.article-card:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 24px rgba(60,60,90,0.08);
+}
+
+.article-card img {
+    object-fit: cover;
+    max-height: 150px;
+}
+
+.headline-box {
+    margin-bottom: 1rem;
+}
+
+#spinner-overlay {
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    background: rgba(255,255,255,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 1.2rem;
+}
+
+@media (max-width: 767px) {
+    .verdict-card {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+    .headline-box {
+        font-size: 0.95rem;
+    }
+}
+
+::-webkit-input-placeholder { color: #bbb; }
+::-moz-placeholder { color: #bbb; }
+:-ms-input-placeholder { color: #bbb; }
+::placeholder { color: #bbb; }
